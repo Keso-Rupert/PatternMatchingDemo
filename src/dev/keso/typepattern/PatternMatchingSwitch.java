@@ -1,6 +1,6 @@
 package dev.keso.typepattern;
 
-public class TypePattern2 {
+public class PatternMatchingSwitch {
 
     public static void main(String[] args) {
 
@@ -27,6 +27,7 @@ public class TypePattern2 {
         }
         //With the risk that formatted is "unknown", if for instance a Float object is used
 
+        // Using pattern matching with the instanceof operator, we can simplify this a lot
         if (obj instanceof Integer i) {
             formatted = String.format("int %d", i);
         } else if (obj instanceof Byte b) {
@@ -38,15 +39,32 @@ public class TypePattern2 {
         } else if (obj instanceof String s) {
             formatted = String.format("String %s", s);
         }
-
+        // But formatted can still be unkown!
         System.out.println(formatted);
 
-        switch(obj){
-            case Integer i -> formatted = String.format("int %d", i);
-            case Byte b -> formatted = String.format("byte %d", b);
+        // When there's a fixed amount of possibilities (including a default one), we use switch of course
+        // Switch uses constant patterns: testing for equality against a constant:
+        formatted = switch(obj){
+            case Integer i -> String.format("int %d", i);
+            case Byte b -> String.format("byte %d", b);
             // etc
-            default -> formatted = String.format("String %s", obj);
+            default -> String.format("String %s", obj);
+        };
+        System.out.println(formatted);
+
+        // BTW, the previous example uses a switch EXPRESSION.
+        // Using pattern matching in switch STATEMENTS is also possible:
+        switch(obj) {
+            case Integer i:
+                formatted = String.format("int %d", i);
+                break;
+            case Byte b:
+                formatted = String.format("byte %d", b);
+                break;
+            default:
+                formatted = String.format("String %s", obj);
         }
+        System.out.println(formatted);
 
     }
 }
