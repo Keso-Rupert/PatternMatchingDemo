@@ -8,6 +8,7 @@ public class PatternMatchingSwitch {
 
         // Things get more tricky when we take one value (obj)
         // and test it against more patterns:
+
         String formatted = "unknown";
         if (obj instanceof Integer) {
             int i = (Integer) obj;
@@ -43,11 +44,12 @@ public class PatternMatchingSwitch {
         System.out.println(formatted);
 
         // When there's a fixed amount of possibilities (including a default one), we use switch of course
-        // Switch uses constant patterns: testing for equality against a constant:
+        // Switch uses 'constant patterns': testing for equality against a constant:
         formatted = switch(obj){
             case Integer i -> String.format("int %d", i);
             case Byte b -> String.format("byte %d", b);
-            // etc
+            case Long l -> String.format("long %d", l);
+            case Double d -> String.format("double %f", d);
             default -> String.format("String %s", obj);
         };
         System.out.println(formatted);
